@@ -21,13 +21,13 @@ export default class AppAlphabet {
             return false
         }
     }
-
+    //text encryption method that takes a string as a parameter, and return an object that contains encrypted text, original text and two digits of randomly generated number
     encrypt(text) {
         const characters = text.split("")
         //randomly generate 2 numbers between 1-9 to move vowels and consonants
         const numberForVowel = Math.floor((Math.random() * 9) + 1)
         const numberForConsonant = Math.floor((Math.random() * 9) + 1)
-
+        //char is short for character
         const encryptedText = characters.map(char => {
             const upperCase = this.isUpperCase(char)
             let charToReturn = ""
