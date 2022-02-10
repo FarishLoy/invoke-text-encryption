@@ -3,14 +3,23 @@ export default class AppAlphabet {
         this.vowels = [ "A", "E", "I", "O", "U"]
         this.consonants = ["B", "C", "D", "F", "G", "H", "J", "K", "L", "M", "N", "P", "Q", "R", "S", "T", "V", "W", "X", "Y", "Z"]
         this.alphabets = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
+        this.lowerCaseAlphabets = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
     }
-
+    //take a character and return true if it's a vowel
     isVowel(char) {
         return this.vowels.includes(char.toUpperCase())
     }
-
+    //take a character and return true if it's a consonant
     isConsonant(char) {
         return this.consonants.includes(char.toUpperCase())
+    }
+    //take a character and return true if it's an upperCase letter
+    isUpperCase(char) {
+        if (this.alphabets.includes(char)) {
+            return true
+        } else {
+            return false
+        }
     }
 
     encrypt(text) {
@@ -20,23 +29,29 @@ export default class AppAlphabet {
         const numberForConsonant = Math.floor((Math.random() * 9) + 1)
 
         const encryptedText = characters.map(char => {
+            const upperCase = this.isUpperCase(char)
+            let charToReturn = ""
             if (this.isVowel(char)) {
                 const index = this.alphabets.findIndex(alphabet => alphabet === char.toUpperCase())
                 if (index + numberForVowel <= (this.alphabets.length - 1)) {
-                    return this.alphabets[index + numberForVowel]
+                    charToReturn = this.alphabets[index + numberForVowel]
                 } else {
-                    return this.alphabets[(index + numberForVowel) - this.alphabets.length]
+                    charToReturn = this.alphabets[(index + numberForVowel) - this.alphabets.length]
                 }
             } else if(this.isConsonant(char)) {
                 const index = this.alphabets.findIndex(alphabet => alphabet == char.toUpperCase())
                 if (index + numberForConsonant <= (this.alphabets.length -1)) {
-                    return this.alphabets[index + numberForConsonant]
+                    charToReturn = this.alphabets[index + numberForConsonant]
                 } else {
-                    return this.alphabets[(index + numberForConsonant) - this.alphabets.length]
+                    charToReturn = this.alphabets[(index + numberForConsonant) - this.alphabets.length]
                 }
             } else {
-                return " "
+                charToReturn =  " "
             }
+            if (!upperCase) {
+                charToReturn = charToReturn.toLowerCase()
+            }
+            return charToReturn
         })
         return {
             encryptedText: encryptedText.join(""),
