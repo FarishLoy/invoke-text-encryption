@@ -39,7 +39,7 @@ export default class AppAlphabet {
                     charToReturn = this.alphabets[(index + numberForVowel) - this.alphabets.length]
                 }
             } else if(this.isConsonant(char)) {
-                const index = this.alphabets.findIndex(alphabet => alphabet == char.toUpperCase())
+                const index = this.alphabets.findIndex(alphabet => alphabet === char.toUpperCase())
                 if (index + numberForConsonant <= (this.alphabets.length -1)) {
                     charToReturn = this.alphabets[index + numberForConsonant]
                 } else {
